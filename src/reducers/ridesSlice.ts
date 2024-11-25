@@ -1,12 +1,4 @@
-/*
- * @Author: changaowu
- * @Date: 2024-11-25 10:07:33
- * @LastEditors: changaowu
- * @LastEditTime: 2024-11-25 10:07:37
- * @Description: file content
- * @FilePath: \DriverProject\src\reducers\ridesSlice.ts
- */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 export interface Ride {
   id: string;
@@ -20,7 +12,13 @@ export interface Ride {
     latitude: number;
     longitude: number;
   };
-  status: 'pending' | 'accepted' | 'declined' | 'started' | 'picked-up' | 'dropped-off';
+  status:
+    | 'pending'
+    | 'accepted'
+    | 'declined'
+    | 'started'
+    | 'picked-up'
+    | 'dropped-off';
   pickupTime: Date;
   timestamp: Date;
 }
@@ -45,7 +43,7 @@ const ridesSlice = createSlice({
     // Action to accept a ride
     acceptRide: (state, action: PayloadAction<string>) => {
       const rideId = action.payload;
-      const ride = state.rides.find((ride) => ride.id === rideId);
+      const ride = state.rides.find(ride => ride.id === rideId);
       if (ride) {
         ride.status = 'accepted';
       }
@@ -53,7 +51,7 @@ const ridesSlice = createSlice({
     // Action to decline a ride
     declineRide: (state, action: PayloadAction<string>) => {
       const rideId = action.payload;
-      const ride = state.rides.find((ride) => ride.id === rideId);
+      const ride = state.rides.find(ride => ride.id === rideId);
       if (ride) {
         ride.status = 'declined';
       }
@@ -62,7 +60,7 @@ const ridesSlice = createSlice({
 });
 
 // Export actions to use them in the components
-export const { fetchRideRequests, acceptRide, declineRide } = ridesSlice.actions;
+export const {fetchRideRequests, acceptRide, declineRide} = ridesSlice.actions;
 
 // Export the reducer to use in the store
 export default ridesSlice.reducer;
