@@ -50,12 +50,31 @@ const HomeScreen: React.FC = () => {
   }
   return (
     <View style={styles.container}>
-      <MapView style={styles.map}>
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: 37.7749,
+          longitude: -122.4194,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}>
+        {/* Driver's location marker */}
+        <Marker
+          coordinate={{
+            latitude: 37.7749,
+            longitude: -122.4194,
+          }}
+          key={'driver'}
+          pinColor="blue"
+          title="You are here"
+        />
         {rides.map(ride => (
           <Marker
             key={ride.id}
             coordinate={ride.pickupLocation}
-            onPress={() => navigation.navigate('RideDetails', {ride})}
+            onPress={() =>
+              navigation.navigate('RideDetails', {rideId: ride.id})
+            }
           />
         ))}
       </MapView>
