@@ -6,6 +6,9 @@ import store from './src/reduxStore/configureStore';
 
 import {HomeScreen, RideDetailsScreen} from './src/containers';
 import {Ride} from './src/reducers/ridesSlice';
+if (__DEV__) {
+  require('./ReactotronConfig');
+}
 
 export type RootStackParamList = {
   Home: undefined;
