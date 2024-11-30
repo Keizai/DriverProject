@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {View, Text, Button, StyleSheet, Alert} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {acceptRide, declineRide} from '../reducers';
@@ -10,19 +10,27 @@ type RideDetailsScreenProps = {
   route: {params: {rideId: string}};
 };
 
+const RideActionButton = memo(
+  ({title, onPress}: {title: string; onPress: () => void}) => {
+    return <Button title={title} onPress={onPress} />;
+  },
+);
+const RideStaticInfo = memo(({ride}: {ride: Ride}) => (
+  <>
+    <Text>
+      Pickup Location: {ride.pickupLocation.latitude},{' '}
+      {ride.pickupLocation.longitude}
+    </Text>
+    <Text>
+      Destination: {ride.destination.latitude}, {ride.destination.longitude}
+    </Text>
+  </>
+));
+
 const RideDetailsScreen: React.FC<RideDetailsScreenProps> = ({route}) => {
   const {rideId} = route.params;
   const dispatch = useDispatch();
-  console.log('rideId', rideId);
-  const [rideStatus, setRideStatus] = React.useState<string | undefined>(
-    undefined,
-  );
 
-  React.useEffect(() => {
-    if (ride) {
-      setRideStatus(ride.status);
-    }
-  }, [ride]);
   const ride = useSelector((state: RootState) => selectRideById(rideId)(state));
   if (!ride) {
     return (
@@ -54,19 +62,13 @@ const RideDetailsScreen: React.FC<RideDetailsScreenProps> = ({route}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Ride Details</Text>
-      <Text>
-        Pickup Location: {ride.pickupLocation.latitude},{' '}
-        {ride.pickupLocation.longitude}
-      </Text>
-      <Text>
-        Destination: {ride.destination.latitude}, {ride.destination.longitude}
-      </Text>
+      <RideStaticInfo ride={ride} />
       <Text>Status: {ride.status}</Text>
 
       {ride.status === 'pending' ? (
         <View>
-          <Button title="Accept Ride" onPress={handleAccept} />
-          <Button title="Decline Ride" onPress={handleDecline} />
+          <RideActionButton title="Accept Ride" onPress={handleAccept} />
+          <RideActionButton title="Decline Ride" onPress={handleDecline} />
         </View>
       ) : (
         <Text style={styles.notice}>
