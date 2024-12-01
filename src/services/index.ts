@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import {Ride} from '../reducers/ridesSlice';
+import {Ride} from '../redux/ridesSlice';
 
 // Create an axios instance
 const axiosInstance = axios.create({

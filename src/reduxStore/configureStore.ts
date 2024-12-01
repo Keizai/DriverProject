@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {ridesReducer} from '../reducers';
+import {ridesReducer} from '../redux';
 import reactotron from '../../ReactotronConfig';
 
 const store = configureStore({

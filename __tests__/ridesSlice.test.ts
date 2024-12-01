@@ -4,7 +4,7 @@ import ridesReducer, {
   declineRide,
   Ride,
   RidesState,
-} from '../src/reducers/ridesSlice';
+} from '../src/redux/ridesSlice';
 import {configureStore} from '@reduxjs/toolkit';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';

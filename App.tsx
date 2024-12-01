@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import store from './src/reduxStore/configureStore';
 
 import {HomeScreen, RideDetailsScreen} from './src/containers';
-import {Ride} from './src/reducers/ridesSlice';
+import {Ride} from './src/redux/ridesSlice';
 if (__DEV__) {
   require('./ReactotronConfig');
 }

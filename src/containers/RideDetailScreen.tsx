@@ -1,8 +1,8 @@
 import React, {memo, useMemo} from 'react';
 import {View, Text, Button, StyleSheet, Alert} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {acceptRide, declineRide} from '../reducers';
-import {Ride} from '../reducers/ridesSlice';
+import {acceptRide, declineRide} from '../redux';
+import {Ride} from '../redux/ridesSlice';
 import {RootState} from '../types';
 import {selectRideById} from '../selectors';
 

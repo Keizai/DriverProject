@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet, ActivityIndicator, Text} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchRideRequests} from '../reducers';
+import {fetchRideRequests} from '../redux';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootState, AppDispatch} from '../types';
