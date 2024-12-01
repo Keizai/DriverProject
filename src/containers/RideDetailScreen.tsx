@@ -24,6 +24,7 @@ const RideStaticInfo = memo(({ride}: {ride: Ride}) => (
     <Text>
       Destination: {ride.destination.latitude}, {ride.destination.longitude}
     </Text>
+    <Text>User: {ride.userId}</Text>
   </>
 ));
 
