@@ -1,79 +1,167 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Ride Sharing Driver Application 🚗
 
-# Getting Started
+A mobile application for drivers to manage ride requests efficiently. This app allows drivers to:
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+- View nearby ride requests on a map.
+- Accept or decline ride requests with real-time status updates.
+- Monitor API requests, Redux state changes, and logs using **Reactotron**.
 
-## Step 1: Start the Metro Server
+---
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Table of Contents
 
-To start Metro, run the following command from the _root_ of your React Native project:
+1. [Features](#features)
+2. [Tech Stack](#tech-stack)
+3. [Setup Instructions](#setup-instructions)
+4. [Running the App](#running-the-app)
+5. [Testing](#testing)
+6. [Performance Optimizations](#performance-optimizations)
+7. [Debugging with Reactotron](#debugging-with-reactotron)
+8. [FAQ](#faq)
+
+---
+
+## Features
+
+- Interactive map to display ride requests using **React Native Maps**.
+- **Redux Toolkit** for managing ride data and status updates.
+- Mock RESTful API powered by **axios-mock-adapter**.
+- Unit tests for Redux slices using **Jest**.
+- Real-time debugging and performance monitoring with **Reactotron**.
+
+---
+
+## Tech Stack
+
+- **React Native**: Front-end framework for mobile app development.
+- **Redux Toolkit**: Simplified state management.
+- **Axios**: For HTTP requests.
+- **Reactotron**: Debugging tool for Redux, network requests, and more.
+- **Jest**: Testing framework for unit and integration tests.
+- **TypeScript**: For type safety and better developer experience.
+
+---
+
+## Setup Instructions
+
+Follow these steps to set up the project:
+
+### Prerequisites
+
+1. Install **Node.js** (version 16.x or later): [Download here](https://nodejs.org/)
+2. Install **Yarn** (if not already installed):
+   ```bash
+   npm install -g yarn
+   ```
+3. Install **React Native CLI**:
+   ```bash
+   npm install -g react-native-cli
+   ```
+4. Ensure you have Android Studio or Xcode installed for running the app on emulators.
+
+---
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-repo/ride-sharing-driver-app.git
+   cd ride-sharing-driver-app
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   yarn install
+   ```
+
+3. Set up a development environment for React Native:
+   Follow the official [React Native setup guide](https://reactnative.dev/docs/environment-setup).
+
+4. (Optional) Install **Reactotron** for debugging:
+   Download it from [Reactotron GitHub](https://github.com/infinitered/reactotron).
+
+---
+
+## Running the App
+
+1. Start the Metro bundler:
+
+   ```bash
+   yarn start
+   ```
+
+2. Run the app on an emulator or physical device:
+
+   - For iOS:
+     ```bash
+     yarn ios
+     ```
+   - This app is not supported Android becuase it don't integrate the Google Map
+
+3. (Optional) Monitor debugging with Reactotron:
+   - Ensure the app and Reactotron are running on the same network.
+   - Check the logs, Redux actions, and API requests in the Reactotron app.
+
+---
+
+## Testing
+
+Run unit tests using Jest:
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+yarn test
 ```
 
-## Step 2: Start your Application
+### Coverage
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+Generate a test coverage report:
 
 ```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+yarn test --coverage
 ```
 
-### For iOS
+---
 
-```bash
-# using npm
-npm run ios
+## Performance Optimizations
 
-# OR using Yarn
-yarn ios
-```
+1. **Memoization**:
+   - Used `Reselect` to prevent unnecessary recomputations in selectors.
+2. **React.memo**:
+   - Optimized static components (buttons) to avoid re-renders.
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+---
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## Debugging with Reactotron
 
-## Step 3: Modifying your App
+### Features:
 
-Now that you have successfully run the app, let's modify it.
+- Monitor Redux actions and state changes.
+- Inspect API requests and responses.
+- View logs and performance metrics in real-time.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+### Setup:
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+- Reactotron is pre-configured in `ReactotronConfig.js`.
+- To enable:
+  1. Start Reactotron on your computer.
+  2. Run the app in development mode.
 
-## Congratulations! :tada:
+---
 
-You've successfully run and modified your React Native App. :partying_face:
+## FAQ
 
-### Now what?
+### **1. Why is the app not connecting to Reactotron?**
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+Ensure the app and Reactotron are on the same network. If using a physical device, update the `host` in `ReactotronConfig.js` to your computer's IP.
 
-# Troubleshooting
+### **2. How do I mock API responses?**
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+API responses are mocked using `axios-mock-adapter` in `/src/services/index.ts`. Adjust the mock responses as needed for development or testing.
 
-# Learn More
+### **3. Why is the map not displaying?**
 
-To learn more about React Native, take a look at the following resources:
+- Ensure `react-native-maps` is correctly installed and linked.
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+---
