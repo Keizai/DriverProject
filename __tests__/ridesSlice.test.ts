@@ -3,17 +3,19 @@ import ridesReducer, {
   acceptRide,
   declineRide,
   Ride,
+  RidesState,
 } from '../src/reducers/ridesSlice';
 import {configureStore} from '@reduxjs/toolkit';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import {RootState} from '../src/types';
 
 // Mock Axios
 const mock = new MockAdapter(axios);
 
 describe('ridesSlice', () => {
-  let store: ReturnType<typeof configureStore>;
-  const initialState = {
+  let store: ReturnType<typeof configureStore<RootState>>;
+  const initialState: RidesState = {
     rides: [],
     loading: false,
     error: null,
@@ -24,7 +26,8 @@ describe('ridesSlice', () => {
   });
 
   it('should handle initial state', () => {
-    expect(store.getState().rides).toEqual(initialState);
+    const state = store.getState().rides;
+    expect(state).toEqual(initialState);
   });
 
   it('should handle acceptRide', () => {
@@ -73,10 +76,9 @@ describe('ridesSlice', () => {
 
     await store.dispatch(fetchRideRequests('/rides-error') as any);
 
-    expect(store.getState().rides.error).toBe(
-      'Request failed with status code 500',
-    );
-    expect(store.getState().rides.loading).toBe(false);
+    const state = store.getState();
+    expect(state.rides.error).toBe('Request failed with status code 500');
+    expect(state.rides.loading).toBe(false);
   });
 
   it('should handle fetchRideRequests - no rides', async () => {

@@ -1,9 +1,5 @@
-import {Ride} from '../reducers/ridesSlice';
+import {Ride, RidesState} from '../reducers/ridesSlice';
 
 export interface RootState {
-  rides: {
-    rides: Ride[];
-    loading: false;
-    error: null;
-  };
+  rides: RidesState;
 }

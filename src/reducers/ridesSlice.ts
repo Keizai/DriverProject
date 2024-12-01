@@ -24,7 +24,7 @@ export interface Ride {
   timestamp: String; //ISOString
 }
 
-interface RidesState {
+export interface RidesState {
   rides: Ride[];
   loading: boolean;
   error: string | null;
