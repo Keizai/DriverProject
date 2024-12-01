@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {memo, useMemo} from 'react';
 import {View, Text, Button, StyleSheet, Alert} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {acceptRide, declineRide} from '../reducers';
@@ -32,7 +32,12 @@ const RideDetailsScreen: React.FC<RideDetailsScreenProps> = ({route}) => {
   const {rideId} = route.params;
   const dispatch = useDispatch();
 
-  const ride = useSelector((state: RootState) => selectRideById(rideId)(state));
+  const rideSelector = useMemo(
+    () => selectRideById(route.params.rideId),
+    [route.params.rideId],
+  );
+  const ride = useSelector(rideSelector);
+
   if (!ride) {
     return (
       <View style={styles.container}>
