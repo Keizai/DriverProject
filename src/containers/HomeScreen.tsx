@@ -1,22 +1,20 @@
-/*
- * @Author: changaowu
- * @Date: 2024-11-27 14:02:57
- * @LastEditors: changaowu
- * @LastEditTime: 2024-11-27 14:16:37
- * @Description: file content
- * @FilePath: \DriverProject\src\containers\HomeScreen.tsx
- */
 import React, {useEffect} from 'react';
 import {View, StyleSheet, ActivityIndicator, Text} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchRideRequests} from '../reducers';
 import {useNavigation} from '@react-navigation/native';
-import {RootState} from '../types';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootState, AppDispatch} from '../types';
+
+type RootStackParamList = {
+  RideDetails: {rideId: string};
+  // ... other screens
+};
 
 const HomeScreen: React.FC = () => {
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const dispatch = useDispatch<AppDispatch>();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const {rides, loading, error} = useSelector(
     (state: RootState) => state.rides,
   );
