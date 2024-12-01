@@ -20,8 +20,8 @@ export interface Ride {
     | 'started'
     | 'picked-up'
     | 'dropped-off';
-  pickupTime: Date;
-  timestamp: Date;
+  pickupTime: String; //ISOString
+  timestamp: String; //ISOString
 }
 
 interface RidesState {
@@ -35,20 +35,27 @@ const initialState: RidesState = {
   loading: false,
   error: null,
 };
+export interface FetchRideRequestsParams {
+  latitude?: number;
+  longitude?: number;
+  radius?: number; // Search radius in kilometers
+  status?: Ride['status'];
+  limit?: number;
+  offset?: number;
+}
+
 // Async thunk to fetch ride requests
 export const fetchRideRequests = createAsyncThunk(
   'rides/fetchRideRequests',
-  async (_, thunkAPI) => {
+  async (apiRoute: string, thunkAPI) => {
     try {
-      const response = await axios.get<Ride[]>('/rides'); // Use `/rides-empty` or `/rides-error` to test edge cases
+      const response = await axios.get<Ride[]>(apiRoute); // Use `/rides-empty` or `/rides-error` to test edge cases
       if (response.data.length === 0) {
         throw new Error('No rides available.');
       }
       return response.data;
     } catch (error: any) {
-      return thunkAPI.rejectWithValue(
-        error.response?.data?.message || 'Failed to fetch rides',
-      );
+      return thunkAPI.rejectWithValue(error.message || 'Failed to fetch rides');
     }
   },
 );
@@ -61,7 +68,7 @@ const ridesSlice = createSlice({
     acceptRide: (state, action: PayloadAction<string>) => {
       const rideId = action.payload;
       const ride = state.rides.find(ride => ride.id === rideId);
-      if (ride) {
+      if (ride && ride.status === 'pending') {
         ride.status = 'accepted';
       }
     },
@@ -69,7 +76,7 @@ const ridesSlice = createSlice({
     declineRide: (state, action: PayloadAction<string>) => {
       const rideId = action.payload;
       const ride = state.rides.find(ride => ride.id === rideId);
-      if (ride) {
+      if (ride && ride.status === 'pending') {
         ride.status = 'declined';
       }
     },

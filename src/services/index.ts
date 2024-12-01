@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { Ride } from '../reducers/ridesSlice';
+import {Ride} from '../reducers/ridesSlice';
 
 // Create an axios instance
 const axiosInstance = axios.create({
@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
 
 // Mock the API for development
 if (__DEV__) {
-  const mock = new MockAdapter(axiosInstance, { delayResponse: 1000 }); // Simulates network delay
+  const mock = new MockAdapter(axiosInstance, {delayResponse: 1000}); // Simulates network delay
 
   // Mock response for GET /rides
   mock.onGet('/rides').reply(200, [
@@ -18,8 +18,8 @@ if (__DEV__) {
       id: '1',
       userId: '101',
       driverId: null,
-      pickupLocation: { latitude: 37.7749, longitude: -122.4194 },
-      destination: { latitude: 37.7849, longitude: -122.4094 },
+      pickupLocation: {latitude: 37.7749, longitude: -122.4394},
+      destination: {latitude: 37.7849, longitude: -122.4094},
       status: 'pending',
       pickupTime: new Date().toISOString(),
       timestamp: new Date().toISOString(),
@@ -28,8 +28,8 @@ if (__DEV__) {
       id: '2',
       userId: '102',
       driverId: null,
-      pickupLocation: { latitude: 37.8049, longitude: -122.4294 },
-      destination: { latitude: 37.8149, longitude: -122.4194 },
+      pickupLocation: {latitude: 37.8049, longitude: -122.4294},
+      destination: {latitude: 37.8149, longitude: -122.4194},
       status: 'pending',
       pickupTime: new Date().toISOString(),
       timestamp: new Date().toISOString(),
@@ -40,7 +40,7 @@ if (__DEV__) {
   mock.onGet('/rides-empty').reply(200, []);
 
   // Simulate an API error
-  mock.onGet('/rides-error').reply(500, { message: 'Internal Server Error' });
+  mock.onGet('/rides-error').reply(500, {message: 'Internal Server Error'});
 }
 
 export default axiosInstance;

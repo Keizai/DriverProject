@@ -22,7 +22,7 @@ const HomeScreen: React.FC = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchRideRequests());
+    dispatch(fetchRideRequests('/rides'));
   }, [dispatch]);
   if (loading) {
     return (
